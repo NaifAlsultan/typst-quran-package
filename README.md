@@ -1,69 +1,94 @@
-# The `my-package` Package
-<div align="center">Version 0.1.0</div>
+# Typst Quran Package
 
-A short description about the project and/or client.
+A Typst package for rendering Quranic text according to the Madinah Mushaf. It utilizes the authentic handwriting of calligrapher Uthman Taha from the King Fahd Complex for the Printing of the Holy Quran, providing precise control over suras, verses, and individual words.
 
-## Template adaptation checklist
+## Features
 
-- [ ] Fill out `README.md`
-  - Change the `my-package` package name, including code snippets
-  - Check section contents and/or delete sections that don't apply
-- [ ] Check and/or replace `LICENSE` by something that suits your needs
-- [ ] Fill out `typst.toml`
-  - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
-- [ ] Adapt Repository URLs in `CHANGELOG.md`
-  - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
-- [ ] Adapt or deactivate the release workflow in `.github/workflows/release.yml`
-  - to deactivate it, delete that file or remove/comment out lines 2-4 (`on:` and following)
-  - to use the workflow
-    - [ ] check the values under `env:`, particularly `REGISTRY_REPO`
-    - [ ] if you don't have one, [create a fine-grained personal access token](https://github.com/settings/tokens?type=beta) with [only Contents permission](https://stackoverflow.com/a/75116350/371191) for the `REGISTRY_REPO`
-    - [ ] on this repo, create a secret `REGISTRY_TOKEN` (at `https://github.com/[user]/[repo]/settings/secrets/actions`) that contains the so created token
+- **High Quality**: Uses fonts from the King Fahd Complex.
+- **Granular Control**: Render specific Suras, Verses, or Words.
+- **Ranges**: Support for ranges of verses and words.
+- **Multi-Qira'at**: Supports **Hafs** (حفص) and **Warsh** (ورش).
+- **Bilingual API**: Full support for both English and Arabic function names.
 
-    if configured correctly, whenever you create a tag `v...`, your package will be pushed onto a branch on the `REGISTRY_REPO`, from which you can then create a pull request against [typst/packages](https://github.com/typst/packages/)
-- [ ] remove/replace the example test case
-- [ ] (add your actual code, docs and tests)
-- [ ] remove this section from the README
+## Installation
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.
+Import the package in your Typst file:
 
 ```typ
-#import "@preview/my-package:0.1.0": *
-
-#show: my-show-rule.with()
-#my-func()
+#import "@preview/quran:0.1.0": quran, set-qiraa
+// Or for Arabic API
+#import "@preview/quran:0.1.0": قرآن, ضبط_القراءة
 ```
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
-  <img src="./thumbnail-light.svg">
-</picture>
+### Fonts Requirement
 
-### Installation
+This package requires specific fonts to render the Quranic text. These fonts are included in the [`fonts/`](./fonts) directory of this repository. You must make them available to Typst using one of the following methods:
 
-A step by step guide that will tell you how to get the development environment up and running. This should explain how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
+1.  **System Fonts**: Install the fonts found in [`fonts/hafs/`](./fonts/hafs) and [`fonts/warsh/`](./fonts/warsh) globally on your operating system.
+2.  **Specify Font Path**: If you prefer not to install them globally, you can point Typst to the fonts directory using the `--font-path` argument when compiling:
 
-```
-$ First step
-$ Another step
-$ Final step
+```bash
+typst compile --font-path ./fonts your-file.typ
 ```
 
 ## Usage
 
-A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
+### Basic Usage
 
+Render a full Sura:
 ```typ
-#import "@preview/my-package:0.1.0": *
-
-#let my-complicated-example = ...
+#quran(sura: 112)
 ```
 
-## Additional Documentation and Acknowledgments
+Render a specific Verse:
+```typ
+#quran(sura: 1, verse: 1)
+```
 
-* Project folder on server:
-* Confluence link:
-* Asana board:
-* etc...
+### Advanced Selection
+
+Render a range of Verses (e.g., from verse 1 to 4):
+```typ
+#quran(sura: 1, verse: (1, 4))
+```
+
+Render a specific Word in a Verse:
+```typ
+#quran(sura: 1, verse: 1, word: 2)
+```
+
+Render a range of Words in a Verse:
+```typ
+#quran(sura: 1, verse: 1, word: (1, 3))
+```
+
+### Qira'at
+
+The package supports **Hafs** (default) and **Warsh**.
+
+You can set the Qiraa globally:
+```typ
+#set-qiraa("warsh")
+#quran(sura: 93, verse: 4)
+```
+
+Or specify it for a single call:
+```typ
+#quran(sura: 93, verse: 4, qiraa: "warsh")
+```
+
+### Arabic API (واجهة الاستخدام العربية)
+
+You can use the Arabic function names for a fully localized experience:
+
+```typ
+#قرآن(سورة: 1, آية: 1)
+
+// تغيير القراءة
+#ضبط_القراءة("ورش")
+#قرآن(سورة: 93, آية: 4)
+```
+
+## Credits
+
+- Fonts and Text: [King Fahd Complex for the Printing of the Holy Quran](https://qurancomplex.gov.sa/).
