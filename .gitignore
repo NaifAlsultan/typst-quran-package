@@ -1,0 +1,15 @@
+# Typst output
+*.pdf
+
+# Test artifacts
+**/out/
+**/diff/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Project specific
+/dist/
