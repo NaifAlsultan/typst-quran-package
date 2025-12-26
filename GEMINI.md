@@ -25,7 +25,7 @@ This project is a **Typst package** designed to render Quranic text according to
 
 ### Prerequisites
 *   **Typst**: The compiler.
-*   **Tytanic (`tt`)**: For running tests. Comprehensive documentation on how to use the Tytanic test runner can be found in `tytanic-docs.md`. Refer to this file whenever help with Tytanic is needed.
+*   **Tytanic (`tt`)**: For running tests. Comprehensive documentation on how to use the Tytanic test runner can be found in `reference/tytanic-docs.md`. Refer to this file whenever help with Tytanic is needed.
 *   **Just**: Command runner.
 *   **Fonts**: The project relies on local fonts. When running commands, ensure `TYPST_FONT_PATHS` includes the `fonts/` directory, or pass `--font-path ./fonts`.
 
