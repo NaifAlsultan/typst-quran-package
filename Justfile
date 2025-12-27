@@ -16,6 +16,10 @@ doc:
 test *args:
   tt run --font-path ./fonts --no-fail-fast {{ args }}
 
+# update test cases
+update *args:
+  tt update --font-path ./fonts {{ args }}
+
 # package the library into the specified destination folder
 package target:
   ./scripts/package "{{target}}"
