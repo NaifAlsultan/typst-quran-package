@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of the `quran` package.
+- Initial release of the `madinah-mushaf` package.
 - Support for rendering Suras, Verses, and Words.
 - Support for verse and word ranges.
 - Multi-Qira'at support: **Hafs** and **Warsh**.

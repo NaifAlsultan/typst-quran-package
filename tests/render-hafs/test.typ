@@ -17,8 +17,8 @@
 == Single Word (Al-Fatiha 1:1:2)
 #quran(sura: 1, verse: 1, word: 2)
 
-== Word Range (Al-Fatiha 1:1:1-3)
-#quran(sura: 1, verse: 1, word: (1, 3))
+== Word Range (Al-Fatiha 1:1:1-2)
+#quran(sura: 1, verse: 1, word: (1, 2))
 
 == Arabic API (Sura An-Nas)
 #قرآن(سورة: 114)

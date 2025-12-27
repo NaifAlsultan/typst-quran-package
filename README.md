@@ -1,6 +1,8 @@
-# Typst Quran Package
+# Typst Madinah Mushaf Package
 
 A Typst package for rendering Quranic text according to the Madinah Mushaf. It utilizes the authentic handwriting of calligrapher Uthman Taha from the King Fahd Complex for the Printing of the Holy Quran, providing precise control over suras, verses, and individual words.
+
+![Preview of rendered Quranic text](tests/integration/ref/1.png)
 
 ## Features
 
@@ -15,9 +17,9 @@ A Typst package for rendering Quranic text according to the Madinah Mushaf. It u
 Import the package in your Typst file:
 
 ```typ
-#import "@preview/quran:0.1.0": quran, set-qiraa, set-bracket
+#import "@preview/madinah-mushaf:0.1.0": quran, set-qiraa, set-bracket
 // Or for Arabic API
-#import "@preview/quran:0.1.0": قرآن, ضبط_القراءة, تفعيل_الأقواس
+#import "@preview/madinah-mushaf:0.1.0": قرآن, ضبط_القراءة, تفعيل_الأقواس
 ```
 
 ### Fonts Requirement
