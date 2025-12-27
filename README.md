@@ -30,8 +30,7 @@ Import the package in your Typst file:
 
 This package requires specific fonts to render the Quranic text. These fonts can be found in [`fonts/`](https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts).
 
-> [!IMPORTANT]
-> **Do not rename the font files.** The package expects exact filenames (e.g., `QCF4_Hafs_01_W.ttf`). If the files are renamed, the package will fail to find the fonts and the text will not render.
+**Do not rename the font files.** The package expects exact filenames (e.g., `QCF4_Hafs_01_W.ttf`). If the files are renamed, the package will fail to find the fonts and the text will not render.
 
 You must make them available to Typst using one of the following methods:
 
