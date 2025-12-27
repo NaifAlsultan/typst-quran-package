@@ -22,9 +22,9 @@ Import the package in your Typst file:
 
 ### Fonts Requirement
 
-This package requires specific fonts to render the Quranic text. These fonts are included in the [`fonts/`](./fonts) directory of this repository. You must make them available to Typst using one of the following methods:
+This package requires specific fonts to render the Quranic text. These fonts are included in the [`fonts/`](https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts) directory of this repository. You must make them available to Typst using one of the following methods:
 
-1.  **System Fonts**: Install the fonts found in [`fonts/hafs/`](./fonts/hafs) and [`fonts/warsh/`](./fonts/warsh) globally on your operating system.
+1.  **System Fonts**: Install the fonts found in [`fonts/hafs/`](https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts/hafs) and [`fonts/warsh/`](https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts/warsh) globally on your operating system.
 2.  **Specify Font Path**: If you prefer not to install them globally, you can point Typst to the fonts directory using the `--font-path` argument when compiling:
 
 ```bash
