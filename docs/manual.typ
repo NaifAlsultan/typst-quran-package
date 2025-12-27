@@ -1,4 +1,4 @@
-#import "../src/lib.typ": quran, set-qiraa, set-bracket, قرآن, ضبط_القراءة, تفعيل_الأقواس
+#import "../src/lib.typ": quran, set-qiraa, set-bracket, قرآن, ضبط-القراءة, تفعيل-الأقواس
 
 #let package-meta = toml("../typst.toml").package
 
@@ -164,11 +164,11 @@ The package provides a fully localized Arabic API.
 #قرآن(سورة: 1, آية: 1)
 
 // تغيير القراءة
-#ضبط_القراءة("ورش")
+#ضبط-القراءة("ورش")
 #قرآن(سورة: 93, آية: 4)
 
 // التحكم في الأقواس
-#تفعيل_الأقواس(false)
+#تفعيل-الأقواس(false)
 #قرآن(سورة: 112, أقواس: true)
 ```
 ]

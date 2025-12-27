@@ -23,7 +23,7 @@ Import the package in your Typst file:
 ```typ
 #import "@preview/madinah-mushaf:0.1.0": quran, set-qiraa, set-bracket
 // Or for Arabic API
-#import "@preview/madinah-mushaf:0.1.0": قرآن, ضبط_القراءة, تفعيل_الأقواس
+#import "@preview/madinah-mushaf:0.1.0": قرآن, ضبط-القراءة, تفعيل-الأقواس
 ```
 
 ### Fonts Requirement
@@ -111,11 +111,11 @@ You can use the Arabic function names for a fully localized experience:
 #قرآن(سورة: 1, آية: 1)
 
 // تغيير القراءة
-#ضبط_القراءة("ورش")
+#ضبط-القراءة("ورش")
 #قرآن(سورة: 93, آية: 4)
 
 // التحكم في الأقواس
-#تفعيل_الأقواس(false)
+#تفعيل-الأقواس(false)
 #قرآن(سورة: 112, أقواس: true)
 ```
 

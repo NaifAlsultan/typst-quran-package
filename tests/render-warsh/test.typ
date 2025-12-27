@@ -1,4 +1,4 @@
-#import "/src/lib.typ": quran, set-qiraa, ضبط_القراءة
+#import "/src/lib.typ": quran, set-qiraa, ضبط-القراءة
 
 #set page(width: auto, height: auto, margin: 1em)
 #set text(lang: "ar")
@@ -17,7 +17,7 @@
 
 === Global Set Hafs
 
-#ضبط_القراءة("حفص")
+#ضبط-القراءة("حفص")
 
 #quran(sura: 93, verse: 4)
 

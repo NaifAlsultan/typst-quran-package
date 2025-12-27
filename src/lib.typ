@@ -5,7 +5,7 @@
 /// - word (int, array, none): The word number (int) or range (array of two ints, e.g., (1, 3)). If none, the whole verse is returned.
 /// - qiraa (str, auto): The Qiraa to use ("hafs", "warsh", "حفص", "ورش"). If auto, uses the globally set qiraa.
 /// - bracket (bool, auto): Whether to wrap the text in Quranic brackets. If auto, uses the globally set preference (default: true).
-#let (quran, قرآن, set-qiraa, ضبط_القراءة, set-bracket, تفعيل_الأقواس) = {
+#let (quran, قرآن, set-qiraa, ضبط-القراءة, set-bracket, تفعيل-الأقواس) = {
   let qiraa-state = state("quran-qiraa", "hafs")
   let bracket-state = state("quran-bracket", true)
 
@@ -156,8 +156,8 @@
   let set-qiraa(qiraa) = qiraa-state.update(qiraa)
   let set-bracket(enabled) = bracket-state.update(enabled)
 
-  let ضبط_القراءة(قراءة) = set-qiraa(قراءة)
-  let تفعيل_الأقواس(تفعيل) = set-bracket(تفعيل)
+  let ضبط-القراءة(قراءة) = set-qiraa(قراءة)
+  let تفعيل-الأقواس(تفعيل) = set-bracket(تفعيل)
 
-  (quran, قرآن, set-qiraa, ضبط_القراءة, set-bracket, تفعيل_الأقواس)
+  (quran, قرآن, set-qiraa, ضبط-القراءة, set-bracket, تفعيل-الأقواس)
 }
