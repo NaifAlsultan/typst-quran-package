@@ -13,9 +13,15 @@
   let pdf = str.from-unicode(0x202C)
   let force-rtl(content) = rlo + content + pdf
 
-  let wrap-word(w) = text(font: w.f, fallback: false)[#str.from-unicode(w.c)]
-
   let quran-impl(sura, verse, word, qiraa, bracket) = {
+    let wrap-word(w) = {
+      let variant = if qiraa == "hafs" or qiraa == "حفص" { "Hafs" } else { "Warsh" }
+      let page = str(w.p)
+      if page.len() == 1 { page = "0" + page }
+      let font = "QCF4_" + variant + "_" + page + "_W"
+      text(font: font, fallback: false)[#str.from-unicode(w.c)]
+    }
+
     assert(
       qiraa == "hafs" or qiraa == "warsh" or qiraa == "حفص" or qiraa == "ورش",
       message: "Qiraa can either be hafs, warsh, حفص, or ورش.",
