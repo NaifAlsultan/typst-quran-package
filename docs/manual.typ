@@ -12,7 +12,7 @@
   )
 }
 
-#set document(title: "Quran Package Manual", author: package-meta.authors)
+#set document(title: "Madinah Mushaf Package Manual", author: package-meta.authors)
 #set page(numbering: "1", number-align: center)
 #set text(lang: "en")
 
@@ -22,16 +22,35 @@
   #text(size: 2em, weight: "bold")[#package-meta.name] \
   #text(size: 1.2em)[Version #package-meta.version] \
   #v(1em)
-  A Typst package for rendering Quranic text.
+  A Typst package for rendering Quranic text according to the Madinah Mushaf.
 ]
 
 #outline(indent: auto)
 
 = Introduction
-This package allows you to render Quranic text in Typst using the authentic fonts from the King Fahd Complex for the Printing of the Holy Quran. It supports both *Hafs* and *Warsh* readings.
+This package allows you to render Quranic text in Typst using the authentic handwriting of calligrapher Uthman Taha from the *King Fahd Complex for the Printing of the Holy Quran*. It provides precise control over suras, verses, and individual words, supporting both *Hafs* (حفص) and *Warsh* (ورش) qira'at.
+
+= Features
+- *High Quality*: Uses authentic fonts from the King Fahd Complex.
+- *Granular Control*: Render specific Suras, Verses, or Words.
+- *Ranges*: Support for ranges of verses and words.
+- *Multi-Qira'at*: Supports *Hafs* and *Warsh*.
+- *Bilingual API*: Full support for both English and Arabic function names.
 
 = Prerequisites
-To use this package, you must have the required fonts installed on your system or available in your project.
+This package requires specific fonts to render the Quranic text properly. These fonts can be found in #link("https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts")[`fonts/`].
+
+#block(fill: luma(240), inset: 8pt, radius: 4pt)[
+  *Important:* Do not rename the font files (e.g., `QCF4_Hafs_01_W.ttf`). The package relies on these exact filenames.
+]
+
+You must make them available to Typst using one of the following methods:
+
++ *System Fonts:* Install the fonts found in #link("https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts/hafs")[`fonts/hafs/`] and #link("https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts/warsh")[`fonts/warsh/`] globally on your operating system.
++ *Specify Font Path:* Point Typst to the fonts directory using the `--font-path` argument when compiling:
+  ```bash
+  typst compile --font-path ./fonts your-file.typ
+  ```
 
 = Installation
 Import the package using the following line:
@@ -61,7 +80,7 @@ Render a specific Verse (e.g., Al-Fatiha, Verse 1):
 ]
 #quran(sura: 1, verse: 1)
 
-== Ranges
+== Advanced Selection
 
 Render a range of Verses:
 #example[
@@ -79,10 +98,31 @@ Render a specific Word:
 ]
 #quran(sura: 1, verse: 1, word: 2)
 
+Render a range of Words in a Verse:
+#example[
+```typ
+#quran(sura: 1, verse: 1, word: (1, 2))
+```
+]
+#quran(sura: 1, verse: 1, word: (1, 2))
+
 == Qira'at
 
-Switch between *Hafs* (default) and *Warsh*.
+The package supports *Hafs* (default) and *Warsh*.
 
+You can set the Qiraa globally:
+#example[
+```typ
+#set-qiraa("warsh")
+#quran(sura: 93, verse: 4)
+```
+]
+#block[
+  #set-qiraa("warsh")
+  #quran(sura: 93, verse: 4)
+]
+
+Or specify it for a single call:
 #example[
 ```typ
 #quran(sura: 93, verse: 4, qiraa: "warsh")
@@ -94,6 +134,19 @@ Switch between *Hafs* (default) and *Warsh*.
 
 You can enable or disable the decorative brackets.
 
+Disable brackets globally:
+#example[
+```typ
+#set-bracket(false)
+#quran(sura: 1, verse: 1)
+```
+]
+#block[
+  #set-bracket(false)
+  #quran(sura: 1, verse: 1)
+]
+
+Control for a single call:
 #example[
 ```typ
 #quran(sura: 1, verse: 1, bracket: false)
@@ -106,8 +159,19 @@ You can enable or disable the decorative brackets.
 The package provides a fully localized Arabic API.
 
 #example[
+#set text(dir: rtl)
 ```typ
-#قرآن(سورة: 112)
+#قرآن(سورة: 1, آية: 1)
+
+// تغيير القراءة
+#ضبط_القراءة("ورش")
+#قرآن(سورة: 93, آية: 4)
+
+// التحكم في الأقواس
+#تفعيل_الأقواس(false)
+#قرآن(سورة: 112, أقواس: true)
 ```
 ]
-#قرآن(سورة: 112)
+
+= Credits
+- Fonts and Text: #link("https://qurancomplex.gov.sa/")[King Fahd Complex for the Printing of the Holy Quran].

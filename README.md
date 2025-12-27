@@ -28,7 +28,7 @@ Import the package in your Typst file:
 
 ### Fonts Requirement
 
-This package requires specific fonts to render the Quranic text. These fonts are included in the [`fonts/`](https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts) directory of this repository.
+This package requires specific fonts to render the Quranic text. These fonts can be found in [`fonts/`](https://github.com/NaifAlsultan/typst-quran-package/tree/main/fonts).
 
 > [!IMPORTANT]
 > **Do not rename the font files.** The package expects exact filenames (e.g., `QCF4_Hafs_01_W.ttf`). If the files are renamed, the package will fail to find the fonts and the text will not render.
@@ -103,7 +103,7 @@ Control for a single call:
 #quran(sura: 1, verse: 1, bracket: false)
 ```
 
-### Arabic API (واجهة الاستخدام العربية)
+### Arabic API
 
 You can use the Arabic function names for a fully localized experience:
 

@@ -4,7 +4,7 @@
 This project is a **Typst package** designed to render Quranic text according to the Madinah Mushaf. It uses authentic handwriting fonts from the **King Fahd Complex for the Printing of the Holy Quran**.
 
 **Key Features:**
-*   **Data Sources:** JSON-based datasets for Hafs (`src/hafs.json`) and Warsh (`src/warsh.json`) readings.
+*   **Data Sources:** JSON-based datasets for Hafs (`src/hafs.json`) and Warsh (`src/warsh.json`) qira'at.
 *   **Fonts:** Relies on specific font files located in `fonts/` (`hafs/` and `warsh/` subdirectories).
 *   **API:** Bilingual API (English/Arabic) for selecting Suras, Verses, and Words.
 *   **Formatting:** Configurable output formatting, including optional Quranic brackets.
@@ -17,8 +17,8 @@ This project is a **Typst package** designed to render Quranic text according to
     *   `*.json`: Data files containing the Quranic text and font mappings.
 *   **`fonts/`**: Contains the necessary `.ttf` files. **Crucial:** These must be visible to the Typst compiler (via `--font-path` or system installation) for the package to work.
 *   **`tests/`**: Regression tests managed by `tytanic`.
-    *   `render-hafs/`: Tests for the Hafs reading.
-    *   `render-warsh/`: Tests for the Warsh reading.
+    *   `render-hafs/`: Tests for the Hafs qiraa.
+    *   `render-warsh/`: Tests for the Warsh qiraa.
     *   `brackets/`: Tests for bracket toggling behavior.
 *   **`docs/`**: Documentation source (`manual.typ`) and assets.
 *   **`scripts/`**: Shell scripts for packaging and local installation.
