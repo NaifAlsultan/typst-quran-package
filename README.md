@@ -4,6 +4,10 @@ A Typst package for rendering Quranic text according to the Madinah Mushaf. It u
 
 ![Preview of rendered Quranic text](https://raw.githubusercontent.com/NaifAlsultan/typst-quran-package/main/tests/integration/ref/1.png)
 
+## Documentation
+
+For visual usage examples, please refer to the [**Manual**](https://raw.githubusercontent.com/NaifAlsultan/typst-quran-package/main/docs/manual.pdf).
+
 ## Features
 
 - **High Quality**: Uses fonts from the King Fahd Complex.
