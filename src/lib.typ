@@ -24,8 +24,9 @@
 
     assert(
       qiraa == "hafs" or qiraa == "warsh" or qiraa == "حفص" or qiraa == "ورش",
-      message: "Qiraa can either be hafs, warsh, حفص, or ورش.",
+      message: "Invalid qiraa. Must be one of: 'hafs', 'warsh', 'حفص', 'ورش'.",
     )
+    assert(type(bracket) == bool, message: "Bracket parameter must be a boolean.") 
 
     let mushaf = if qiraa == "hafs" or qiraa == "حفص" { json("hafs.json") } else { json("warsh.json") }
 
@@ -40,19 +41,26 @@
       }
     }
 
-    assert(type(sura) == int and sura >= 1 and sura <= mushaf.len(), message: "Invalid Sura number: " + str(sura))
+    assert(type(sura) == int, message: "Sura number is required. Must specify a sura integer between 1 and " + str(mushaf.len()) + ".")
+    assert(
+      sura >= 1 and sura <= mushaf.len(),
+      message: "Invalid sura number: " + str(sura) + ". Must be between 1 and " + str(mushaf.len()) + "."
+    )
 
     let selected-sura = mushaf.at(sura - 1)
 
     if verse == none {
-      assert(word == none, message: "If you specify words you must specify a verse too.")
+      assert(word == none, message: "Cannot specify a word without specifying a verse.")
       return format-output(
         selected-sura.flatten().map(wrap-word).join(" "),
       )
     }
 
     if type(verse) == int {
-      assert(verse >= 1 and verse <= selected-sura.len(), message: "Invalid Verse number: " + str(verse))
+      assert(
+        verse >= 1 and verse <= selected-sura.len(),
+        message: "Invalid verse number: " + str(verse) + ". Sura " + str(sura) + " has " + str(selected-sura.len()) + " verses."
+      )
 
       let words = selected-sura.at(verse - 1)
 
@@ -62,7 +70,7 @@
 
       let assert-word(word-idx) = assert(
         word-idx >= 1 and word-idx <= words.len(),
-        message: "Invalid Word number: " + str(word-idx),
+        message: "Invalid word number: " + str(word-idx) + ". Verse " + str(verse) + " has " + str(words.len()) + " words.",
       )
 
       if type(word) == int {
@@ -73,6 +81,7 @@
       if type(word) == array {
         if word.len() == 1 {
           let (start-idx) = word
+          assert(type(start-idx) == int, message: "Word range value must be an integer.")
           assert-word(start-idx)
           return format-output(
             words.slice(start-idx - 1).map(wrap-word).join(" "),
@@ -82,7 +91,8 @@
         if word.len() == 2 {
           let (left-idx, right-idx) = word
 
-          assert(left-idx != right-idx, message: "Values in word range cannot be equal to each other.")
+          assert(type(left-idx) == int and type(right-idx) == int, message: "Word range values must be integers.")
+          assert(left-idx != right-idx, message: "Word range start and end cannot be equal.")
 
           let start-idx = calc.min(left-idx, right-idx)
           let end-idx = calc.max(left-idx, right-idx)
@@ -96,23 +106,24 @@
         }
 
         panic(
-          "Cannot pass "
-            + str(word.len())
-            + " values in word range. Word ranges can have either one or two values but not more.",
+          "Invalid word range length: " + str(word.len()) + ". Must be 1 or 2.",
         )
       }
+
+      panic("Invalid word type: " + str(type(word)) + ". Must be int, array, or none.")
     }
 
     if type(verse) == array {
-      assert(word == none, message: "Cannot specify words while having verse ranges.")
+      assert(word == none, message: "Cannot specify words when a verse range is provided.")
 
       let assert-verse(verse-idx) = assert(
         verse-idx >= 1 and verse-idx <= selected-sura.len(),
-        message: "Invalid Verse number: " + str(verse-idx),
+        message: "Invalid verse number: " + str(verse-idx) + ". Sura " + str(sura) + " has " + str(selected-sura.len()) + " verses.",
       )
 
       if verse.len() == 1 {
         let (start-idx) = verse
+        assert(type(start-idx) == int, message: "Verse range value must be an integer.")
         assert-verse(start-idx)
         return format-output(
           selected-sura.slice(start-idx - 1).flatten().map(wrap-word).join(" "),
@@ -122,7 +133,8 @@
       if verse.len() == 2 {
         let (left-idx, right-idx) = verse
 
-        assert(left-idx != right-idx, message: "Values in verse range cannot be equal to each other.")
+        assert(type(left-idx) == int and type(right-idx) == int, message: "Verse range values must be integers.")
+        assert(left-idx != right-idx, message: "Verse range start and end cannot be equal.")
 
         let start-idx = calc.min(left-idx, right-idx)
         let end-idx = calc.max(left-idx, right-idx)
@@ -136,13 +148,11 @@
       }
 
       panic(
-        "Cannot pass "
-          + str(verse.len())
-          + " values in verse range. Verse ranges can have either one or two values but not more.",
+        "Invalid verse range length: " + str(verse.len()) + ". Must be 1 or 2.",
       )
     }
 
-    panic("Unreachable.")
+    panic("Invalid verse type: " + str(type(verse)) + ". Must be int, array, or none.")
   }
 
   let quran(sura: none, verse: none, word: none, qiraa: auto, bracket: auto) = context {
