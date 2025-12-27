@@ -30,8 +30,16 @@
 = Introduction
 This package allows you to render Quranic text in Typst using the authentic fonts from the King Fahd Complex for the Printing of the Holy Quran. It supports both *Hafs* and *Warsh* readings.
 
-= Setup
+= Prerequisites
 To use this package, you must have the required fonts installed on your system or available in your project.
+
+= Installation
+Import the package using the following line:
+#example[
+```typ
+#import "@preview/madinah-mushaf:0.1.0": quran, set-qiraa, set-bracket
+```
+]
 
 = Usage
 
