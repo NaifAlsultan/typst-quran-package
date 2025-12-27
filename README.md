@@ -2,7 +2,7 @@
 
 A Typst package for rendering Quranic text according to the Madinah Mushaf. It utilizes the authentic handwriting of calligrapher Uthman Taha from the King Fahd Complex for the Printing of the Holy Quran, providing precise control over suras, verses, and individual words.
 
-![Preview of rendered Quranic text](tests/integration/ref/1.png)
+![Preview of rendered Quranic text](https://raw.githubusercontent.com/NaifAlsultan/typst-quran-package/main/tests/integration/ref/1.png)
 
 ## Features
 
