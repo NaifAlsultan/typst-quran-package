@@ -7,6 +7,7 @@ This project is a **Typst package** designed to render Quranic text according to
 *   **Data Sources:** JSON-based datasets for Hafs (`src/hafs.json`) and Warsh (`src/warsh.json`) readings.
 *   **Fonts:** Relies on specific font files located in `fonts/` (`hafs/` and `warsh/` subdirectories).
 *   **API:** Bilingual API (English/Arabic) for selecting Suras, Verses, and Words.
+*   **Formatting:** Configurable output formatting, including optional Quranic brackets.
 *   **Testing:** Uses `tytanic` (binary `tt`) for regression testing.
 
 ## Directory Structure
@@ -18,6 +19,7 @@ This project is a **Typst package** designed to render Quranic text according to
 *   **`tests/`**: Regression tests managed by `tytanic`.
     *   `render-hafs/`: Tests for the Hafs reading.
     *   `render-warsh/`: Tests for the Warsh reading.
+    *   `brackets/`: Tests for bracket toggling behavior.
 *   **`docs/`**: Documentation source (`manual.typ`) and assets.
 *   **`scripts/`**: Shell scripts for packaging and local installation.
 

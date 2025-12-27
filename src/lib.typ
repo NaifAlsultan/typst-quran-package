@@ -4,10 +4,18 @@
 /// - verse (int, array, none): The verse number (int) or range (array of two ints, e.g., (1, 3)). If none, the whole Sura is returned.
 /// - word (int, array, none): The word number (int) or range (array of two ints, e.g., (1, 3)). If none, the whole verse is returned.
 /// - qiraa (str, auto): The Qiraa to use ("hafs", "warsh", "حفص", "ورش"). If auto, uses the globally set qiraa.
-#let (quran, قرآن, set-qiraa, ضبط_القراءة) = {
+/// - bracket (bool, auto): Whether to wrap the text in Quranic brackets. If auto, uses the globally set preference (default: true).
+#let (quran, قرآن, set-qiraa, ضبط_القراءة, set-bracket, تفعيل_الأقواس) = {
   let qiraa-state = state("quran-qiraa", "hafs")
+  let bracket-state = state("quran-bracket", true)
 
-  let quran-impl(sura, verse, word, qiraa) = {
+  let rlo = str.from-unicode(0x202E)
+  let pdf = str.from-unicode(0x202C)
+  let force-rtl(content) = rlo + content + pdf
+
+  let wrap-word(w) = text(font: w.f, fallback: false)[#str.from-unicode(w.c)]
+
+  let quran-impl(sura, verse, word, qiraa, bracket) = {
     assert(
       qiraa == "hafs" or qiraa == "warsh" or qiraa == "حفص" or qiraa == "ورش",
       message: "Qiraa can either be hafs, warsh, حفص, or ورش.",
@@ -15,17 +23,24 @@
 
     let mushaf = if qiraa == "hafs" or qiraa == "حفص" { json("hafs.json") } else { json("warsh.json") }
 
+    let format-output(content) = {
+      if bracket {
+        let font = if qiraa == "hafs" or qiraa == "حفص" { "QCF4_Hafs_01_W" } else { "QCF4_Warsh_01_W" }
+        let open = text(font: font, fallback: false)[#str.from-unicode(0xF8E0)]
+        let close = text(font: font, fallback: false)[#str.from-unicode(0xF8E1)]
+        force-rtl(open + content + close)
+      } else {
+        force-rtl(content)
+      }
+    }
+
     assert(type(sura) == int and sura >= 1 and sura <= mushaf.len(), message: "Invalid Sura number: " + str(sura))
 
-    let rlo = str.from-unicode(0x202E)
-    let pdf = str.from-unicode(0x202C)
     let selected-sura = mushaf.at(sura - 1)
-    let force-rtl(content) = rlo + content + pdf
-    let wrap-word(w) = text(font: w.f, fallback: false)[#str.from-unicode(w.c)]
 
     if verse == none {
       assert(word == none, message: "If you specify words you must specify a verse too.")
-      return force-rtl(
+      return format-output(
         selected-sura.flatten().map(wrap-word).join(" "),
       )
     }
@@ -36,7 +51,7 @@
       let words = selected-sura.at(verse - 1)
 
       if word == none {
-        return force-rtl(words.map(wrap-word).join(" "))
+        return format-output(words.map(wrap-word).join(" "))
       }
 
       let assert-word(word-idx) = assert(
@@ -46,14 +61,14 @@
 
       if type(word) == int {
         assert-word(word)
-        return force-rtl(wrap-word(words.at(word - 1)))
+        return format-output(wrap-word(words.at(word - 1)))
       }
 
       if type(word) == array {
         if word.len() == 1 {
           let (start-idx) = word
           assert-word(start-idx)
-          return force-rtl(
+          return format-output(
             words.slice(start-idx - 1).map(wrap-word).join(" "),
           )
         }
@@ -69,7 +84,7 @@
           assert-word(start-idx)
           assert-word(end-idx)
 
-          return force-rtl(
+          return format-output(
             words.slice(start-idx - 1, end-idx).map(wrap-word).join(" "),
           )
         }
@@ -93,7 +108,7 @@
       if verse.len() == 1 {
         let (start-idx) = verse
         assert-verse(start-idx)
-        return force-rtl(
+        return format-output(
           selected-sura.slice(start-idx - 1).flatten().map(wrap-word).join(" "),
         )
       }
@@ -109,7 +124,7 @@
         assert-verse(start-idx)
         assert-verse(end-idx)
 
-        return force-rtl(
+        return format-output(
           selected-sura.slice(start-idx - 1, end-idx).flatten().map(wrap-word).join(" "),
         )
       }
@@ -124,16 +139,19 @@
     panic("Unreachable.")
   }
 
-  let quran(sura: none, verse: none, word: none, qiraa: auto) = context {
+  let quran(sura: none, verse: none, word: none, qiraa: auto, bracket: auto) = context {
     let q = if qiraa == auto { qiraa-state.get() } else { qiraa }
-    quran-impl(sura, verse, word, q)
+    let b = if bracket == auto { bracket-state.get() } else { bracket }
+    quran-impl(sura, verse, word, q, b)
   }
 
-  let قرآن(سورة: none, آية: none, كلمة: none, قراءة: auto) = quran(sura: سورة, verse: آية, word: كلمة, qiraa: قراءة)
+  let قرآن(سورة: none, آية: none, كلمة: none, قراءة: auto, أقواس: auto) = quran(sura: سورة, verse: آية, word: كلمة, qiraa: قراءة, bracket: أقواس)
 
   let set-qiraa(qiraa) = qiraa-state.update(qiraa)
+  let set-bracket(enabled) = bracket-state.update(enabled)
 
   let ضبط_القراءة(قراءة) = set-qiraa(قراءة)
+  let تفعيل_الأقواس(تفعيل) = set-bracket(تفعيل)
 
-  (quran, قرآن, set-qiraa, ضبط_القراءة)
+  (quran, قرآن, set-qiraa, ضبط_القراءة, set-bracket, تفعيل_الأقواس)
 }

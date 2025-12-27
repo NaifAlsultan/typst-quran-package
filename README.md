@@ -15,9 +15,9 @@ A Typst package for rendering Quranic text according to the Madinah Mushaf. It u
 Import the package in your Typst file:
 
 ```typ
-#import "@preview/quran:0.1.0": quran, set-qiraa
+#import "@preview/quran:0.1.0": quran, set-qiraa, set-bracket
 // Or for Arabic API
-#import "@preview/quran:0.1.0": قرآن, ضبط_القراءة
+#import "@preview/quran:0.1.0": قرآن, ضبط_القراءة, تفعيل_الأقواس
 ```
 
 ### Fonts Requirement
@@ -77,6 +77,21 @@ Or specify it for a single call:
 #quran(sura: 93, verse: 4, qiraa: "warsh")
 ```
 
+### Brackets
+
+By default, the output is wrapped in decorative Quranic brackets. You can control this behavior globally or for individual calls.
+
+Disable brackets globally:
+```typ
+#set-bracket(false)
+#quran(sura: 1, verse: 1)
+```
+
+Control for a single call:
+```typ
+#quran(sura: 1, verse: 1, bracket: false)
+```
+
 ### Arabic API (واجهة الاستخدام العربية)
 
 You can use the Arabic function names for a fully localized experience:
@@ -87,6 +102,10 @@ You can use the Arabic function names for a fully localized experience:
 // تغيير القراءة
 #ضبط_القراءة("ورش")
 #قرآن(سورة: 93, آية: 4)
+
+// التحكم في الأقواس
+#تفعيل_الأقواس(false)
+#قرآن(سورة: 112, أقواس: true)
 ```
 
 ## Credits
