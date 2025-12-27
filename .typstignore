@@ -8,4 +8,4 @@ GEMINI.md
 flake.nix
 flake.lock
 .gitignore
-docs/
+docs
