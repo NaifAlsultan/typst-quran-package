@@ -14,11 +14,7 @@ doc:
 
 # run test suite
 test *args:
-  tt run --no-fail-fast {{ args }}
-
-# update test cases
-update *args:
-  tt update {{ args }}
+  tt run --font-path ./fonts --no-fail-fast {{ args }}
 
 # package the library into the specified destination folder
 package target:
